@@ -28,6 +28,21 @@ export default function Product() {
   const [productDetails, setProductDetails] = useState({});
   const [suppliers, setSuppliers] = useState<SupplierDetails[]>([]);
   const [supplierID, setSupplierID] = useState<number>(0);
+  const [image, setImage] = useState<string | null>(null);
+
+  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const data = new FileReader();
+    data.readAsDataURL(e.target.files![0]);
+
+    data.onloadend = () => {
+      const base64 = data.result;
+      if (base64) {
+        setImage(base64.toString());
+
+        // console.log(base64.toString());
+      }
+    };
+  };
 
   const handleMouseOver = () => {
     setIsMouseOver(true);
@@ -47,8 +62,13 @@ export default function Product() {
     console.log('dsadas');
     e.preventDefault();
     axios
-      .post('http://localhost/jed-inventory/supplier.php', {
+      .post('http://localhost/jed-inventory/product.php', {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
         ...productDetails,
+        product_image: image,
+        supplier_id: supplierID,
       })
       .then((res) => {
         console.log(res.data);
@@ -65,6 +85,13 @@ export default function Product() {
   useEffect(() => {
     getAllSuppliers();
   }, []);
+
+  const handleStatus = (event: string) => {
+    const selectedValue = event;
+    const filterNumber = selectedValue.match(/\d+/g);
+    const parsedSupplierID = filterNumber ? parseInt(filterNumber[0], 10) : 0;
+    setSupplierID(parsedSupplierID);
+  };
 
   return (
     <div className="p-4 relative">
@@ -175,29 +202,37 @@ export default function Product() {
             className="bg-white w-[35rem] p-4 rounded-md border-pink-500 border-2"
             onSubmit={handleSubmit}
           >
-            <Label>Supplier</Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Supplier" />
-              </SelectTrigger>
-              <SelectContent>
-                {suppliers.map((supplier) => {
-                  return (
-                    <SelectItem
-                      onClick={() => setSupplierID(supplier.supplier_id)}
-                      value={supplier.supplier_name}
-                    >
-                      {supplier.supplier_name}
-                    </SelectItem>
-                  );
-                })}
-              </SelectContent>
-            </Select>
-            <div>
+            <div className="mb-2">
+              <Label>Supplier</Label>
+              <Select onValueChange={(e: string) => handleStatus(e)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Supplier" />
+                </SelectTrigger>
+                <SelectContent>
+                  {suppliers.map((supplier, index) => {
+                    return (
+                      <SelectItem
+                        key={index}
+                        value={supplier.supplier_name + supplier.supplier_id}
+                      >
+                        {supplier.supplier_name}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="mb-2">
+              <img
+                className="w-[40rem]  h-[25rem] object-cover rounded-lg mb-4"
+                src={image! ? image! : dumy}
+              />
               <Label>Product Image</Label>
               <Input
                 type="file"
-                onChange={handleInputChange}
+                accept="image/*"
+                onChange={handleChangeImage}
                 name="product_image"
               />
             </div>
