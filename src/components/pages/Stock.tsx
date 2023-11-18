@@ -122,10 +122,11 @@ export default function Stock() {
             <Input
               onChange={(e) => setSearchProduct(e.target.value)}
               placeholder="search product"
-              className="w-[15rem] border-2 border-pink-500"
+              className="w-[15rem] border-2 border-pink-500 bg-white"
             />
           </div>
-          <Table className="h-full w-full mt-[2rem]">
+
+          <Table className="h-full w-full mt-[2rem] bg-white rounded-md">
             <TableHeader>
               <TableRow>
                 <TableHead>Product</TableHead>
@@ -178,7 +179,7 @@ export default function Stock() {
           </Table>
         </div>
 
-        <div className="w-[80%]">
+        <div className="w-[80%] ">
           <div className="flex justify-between items-center">
             <h1 className="font-bold text-3xl py-5">
               STOCK IN AND STOCK OUT HISTORY
@@ -186,7 +187,7 @@ export default function Stock() {
             <Button className="bg-pink-500">Export Report</Button>
           </div>
 
-          <Table className="border-2">
+          <Table className="border-2 bg-white">
             <TableHeader className="bg-pink-500 text-white">
               <TableRow>
                 <TableHead className="text-white">Date</TableHead>

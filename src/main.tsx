@@ -8,6 +8,7 @@ import Supplier from './components/pages/Supplier.tsx';
 import ProductsAll from './components/pages/ProductsAll.tsx';
 import Stock from './components/pages/Stock.tsx';
 import Reports from './components/pages/Reports.tsx';
+import ReportsAll from './components/pages/ReportsAll.tsx';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: '/reports',
         element: <Reports />,
+      },
+      {
+        path: '/reports/all',
+        element: <ReportsAll />,
       },
     ],
   },

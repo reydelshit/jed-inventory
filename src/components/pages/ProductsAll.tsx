@@ -26,6 +26,7 @@ type ProductDetails = {
 
 export default function ProductsAll() {
   const [product, setProduct] = useState<ProductDetails[]>([]);
+  const [searchProduct, setSearchProduct] = useState('' as string);
 
   const getAllProducts = () => {
     axios.get('http://localhost/jed-inventory/product.php').then((res) => {
@@ -48,6 +49,7 @@ export default function ProductsAll() {
       <div className="mt-[2rem]">
         <div className="flex justify-end">
           <Input
+            onChange={(e) => setSearchProduct(e.target.value)}
             placeholder="Search product.."
             className="w-[20rem] border-pink-500 border-2 mb-2"
           />
@@ -64,28 +66,30 @@ export default function ProductsAll() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {product.map((prod, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <img
-                    className="w-[5rem] rounded-lg h-[5rem] object-cover"
-                    src={prod.product_image}
-                    alt={prod.product_name}
-                  />
-                </TableCell>
-                <TableCell>{prod.product_name}</TableCell>
-                <TableCell>{prod.expiration_date}</TableCell>
-                <TableCell>
-                  {prod.stocks > 20 ? 'IN STOCK' : 'OUT OF STOCK'}
-                </TableCell>
-                <TableCell>{prod.stocks}</TableCell>
-                <TableCell className="flex gap-2 w-[20rem] border-2">
-                  <Button className="bg-pink-500">Delete</Button>
-                  <Button className="bg-pink-500">Update</Button>
-                  <Button className="bg-pink-500">Add stocks</Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {product
+              .filter((prod) => prod.product_name.includes(searchProduct))
+              .map((prod, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <img
+                      className="w-[5rem] rounded-lg h-[5rem] object-cover"
+                      src={prod.product_image}
+                      alt={prod.product_name}
+                    />
+                  </TableCell>
+                  <TableCell>{prod.product_name}</TableCell>
+                  <TableCell>{prod.expiration_date}</TableCell>
+                  <TableCell>
+                    {prod.stocks > 20 ? 'IN STOCK' : 'OUT OF STOCK'}
+                  </TableCell>
+                  <TableCell>{prod.stocks}</TableCell>
+                  <TableCell className="flex gap-2 w-[20rem] border-2">
+                    <Button className="bg-pink-500">Delete</Button>
+                    <Button className="bg-pink-500">Update</Button>
+                    <Button className="bg-pink-500">Add stocks</Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </div>

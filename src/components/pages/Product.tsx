@@ -237,14 +237,14 @@ export default function Product() {
       </div>
 
       {showProductModal && (
-        <div className="absolute w-full h-full top-0 z-50 bg-white bg-opacity-80 flex justify-center items-center">
+        <div className="absolute w-full h-full top-0 z-50 bg-[#f2f2f0] bg-opacity-80 flex justify-center items-center">
           <form
             className="bg-white w-[35rem] h-fit p-4 rounded-md border-pink-500 border-2"
             onSubmit={handleSubmit}
           >
             <div className="mb-2">
               <Label>Supplier</Label>
-              <Select onValueChange={(e: string) => handleStatus(e)}>
+              <Select required onValueChange={(e: string) => handleStatus(e)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Supplier" />
                 </SelectTrigger>
@@ -270,6 +270,7 @@ export default function Product() {
               />
               <Label>Product Image</Label>
               <Input
+                required
                 type="file"
                 accept="image/*"
                 onChange={handleChangeImage}
@@ -278,22 +279,27 @@ export default function Product() {
             </div>
             <div>
               <Label>Product Name</Label>
-              <Input onChange={handleInputChange} name="product_name" />
+              <Input
+                required
+                onChange={handleInputChange}
+                name="product_name"
+              />
             </div>
 
             <div>
               <Label>Description</Label>
-              <Input onChange={handleInputChange} name="description" />
+              <Input required onChange={handleInputChange} name="description" />
             </div>
 
             <div>
-              <Label>Stocks</Label>
-              <Input onChange={handleInputChange} name="stocks" />
+              <Label>Starting Stocks</Label>
+              <Input required onChange={handleInputChange} name="stocks" />
             </div>
 
             <div>
               <Label>Expiration</Label>
               <Input
+                required
                 type="date"
                 onChange={handleInputChange}
                 name="expiration_date"
