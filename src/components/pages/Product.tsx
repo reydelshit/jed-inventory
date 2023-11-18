@@ -31,6 +31,7 @@ type ProductDetails = {
   product_image: string;
   supplier_id: number;
   product_id: number;
+  racks: string;
 };
 
 type ProductDetailSpecific = {
@@ -42,6 +43,13 @@ type ProductDetailSpecific = {
   supplier_id: number;
   product_id: number;
   supplier_name: string;
+};
+
+type ReportDetails = {
+  type: string;
+  quantity: number;
+  product_name: string;
+  product_id: number;
 };
 
 export default function Product() {
@@ -56,6 +64,8 @@ export default function Product() {
   const [productSpecific, setProductSpecific] = useState<
     ProductDetailSpecific[]
   >([]);
+  const [racks, setRacks] = useState('');
+  const [reports, setReports] = useState<ReportDetails[]>([]);
 
   const navigate = useNavigate();
 
@@ -79,6 +89,7 @@ export default function Product() {
     console.log(id);
     // setProductID(id);
     getSpecificProduct(id);
+    getReports();
   };
 
   const handleMouseLeave = () => {
@@ -102,6 +113,7 @@ export default function Product() {
         ...productDetails,
         product_image: image,
         supplier_id: supplierID,
+        racks: racks,
       })
       .then((res) => {
         console.log(res.data);
@@ -140,6 +152,13 @@ export default function Product() {
       });
   };
 
+  const getReports = () => {
+    axios.get('http://localhost/jed-inventory/reports.php').then((res) => {
+      console.log(res.data);
+      setReports(res.data);
+    });
+  };
+
   useEffect(() => {
     getAllSuppliers();
     getAllProducts();
@@ -152,6 +171,11 @@ export default function Product() {
     setSupplierID(parsedSupplierID);
   };
 
+  const handleRacks = (event: string) => {
+    const selectedValue = event;
+
+    setRacks(selectedValue);
+  };
   return (
     <div className="p-4 relative">
       <div className="flex gap-10 ">
@@ -176,10 +200,21 @@ export default function Product() {
                   />
                   <div className="flex items-start flex-col justify-center text-lg">
                     <h1 className="font-bold">{prod.product_name}</h1>
-                    <p className="text-red-500 ">SOLD OUT</p>
+                    <p>
+                      {prod.stocks} /{' '}
+                      {reports
+                        .filter(
+                          (product) =>
+                            product.type === 'Stock In' &&
+                            product.product_id === prod.product_id,
+                        )
+                        .reduce(
+                          (total, product) => total + product.quantity,
+                          0,
+                        )}
+                    </p>
                     <span className="flex gap-2">
-                      SUPPLIER:{' '}
-                      <p className="text-red-500"> {prod.supplier_name}</p>
+                      SUPPLIER: <p> {prod.supplier_name}</p>
                     </span>
                     <span className="flex gap-2">
                       CONSINGMENT EXP DATE: {prod.expiration_date}
@@ -194,11 +229,11 @@ export default function Product() {
           <div className="flex gap-2 mb-2 w-full items-end justify-end">
             <Button
               onClick={() => setShowProductModal(true)}
-              className="bg-pink-500"
+              className="bg-[#618264]"
             >
               Add Product
             </Button>
-            <Button onClick={() => navigate('/stock')} className="bg-pink-500">
+            <Button onClick={() => navigate('/stock')} className="bg-[#618264]">
               Add Stock
             </Button>
           </div>
@@ -228,7 +263,7 @@ export default function Product() {
           <div className="w-full text-center mt-[2rem]">
             <Button
               onClick={() => navigate('/product/all')}
-              className="bg-pink-500"
+              className="bg-[#618264]"
             >
               View More
             </Button>
@@ -239,7 +274,7 @@ export default function Product() {
       {showProductModal && (
         <div className="absolute w-full h-full top-0 z-50 bg-[#f2f2f0] bg-opacity-80 flex justify-center items-center">
           <form
-            className="bg-white w-[35rem] h-fit p-4 rounded-md border-pink-500 border-2"
+            className="bg-white w-[35rem] h-fit p-4 rounded-md border-[#618264] border-2"
             onSubmit={handleSubmit}
           >
             <div className="mb-2">
@@ -294,6 +329,25 @@ export default function Product() {
             <div>
               <Label>Starting Stocks</Label>
               <Input required onChange={handleInputChange} name="stocks" />
+            </div>
+
+            <div className="my-2">
+              <Label>Racks</Label>
+
+              <Select required onValueChange={(e: string) => handleRacks(e)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Supplier" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Array.from({ length: 10 }, (_, i) => i).map((num) => {
+                    return (
+                      <SelectItem key={num} value={num.toString()}>
+                        {num + 1}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
             </div>
 
             <div>

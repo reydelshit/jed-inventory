@@ -85,7 +85,7 @@ export default function Reports() {
                 key={index}
                 className="flex justify-center w-[20rem] flex-col p-4 leading-8"
               >
-                <h1 className="text-9xl text-pink-500 font-bold mb-[2rem]">
+                <h1 className="text-9xl text-[#618264] font-bold mb-[2rem]">
                   {Math.floor(CalculatePercentage(product.product_id))}%
                 </h1>
                 <p className="font-bold text-3xl">
@@ -113,7 +113,7 @@ export default function Reports() {
       <div className="text-end w-full mt-[2rem] px-4">
         <Button
           onClick={() => navigate('/reports/all')}
-          className="bg-pink-500"
+          className="bg-[#618264]"
         >
           Show more
         </Button>

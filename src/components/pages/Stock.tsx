@@ -122,7 +122,7 @@ export default function Stock() {
             <Input
               onChange={(e) => setSearchProduct(e.target.value)}
               placeholder="search product"
-              className="w-[15rem] border-2 border-pink-500 bg-white"
+              className="w-[15rem] border-2 border-[#618264] bg-white"
             />
           </div>
 
@@ -149,7 +149,7 @@ export default function Stock() {
 
                         <TableCell className="flex gap-2">
                           <Button
-                            className="bg-pink-500"
+                            className="bg-[#618264]"
                             onClick={() =>
                               handleOpenFormStockIn(
                                 prod.product_name,
@@ -161,7 +161,7 @@ export default function Stock() {
                           </Button>
 
                           <Button
-                            className="bg-pink-500"
+                            className="bg-[#618264]"
                             onClick={() =>
                               handleOpenFormStockOut(
                                 prod.product_name,
@@ -184,11 +184,11 @@ export default function Stock() {
             <h1 className="font-bold text-3xl py-5">
               STOCK IN AND STOCK OUT HISTORY
             </h1>
-            <Button className="bg-pink-500">Export Report</Button>
+            <Button className="bg-[#618264]">Export Report</Button>
           </div>
 
           <Table className="border-2 bg-white">
-            <TableHeader className="bg-pink-500 text-white">
+            <TableHeader className="bg-[#618264] text-white">
               <TableRow>
                 <TableHead className="text-white">Date</TableHead>
                 <TableHead className="text-white">Product Name</TableHead>
@@ -234,12 +234,12 @@ export default function Stock() {
             <div className="flex gap-2 w-full mt-[2rem]">
               <Button
                 onClick={() => setShowStockFormStockIn(false)}
-                className="bg-pink-500"
+                className="bg-[#618264]"
               >
                 Cancel
               </Button>
 
-              <Button type="submit" className="bg-pink-500">
+              <Button type="submit" className="bg-[#618264]">
                 Submit
               </Button>
             </div>
@@ -271,12 +271,12 @@ export default function Stock() {
             <div className="flex gap-2 w-full mt-[2rem]">
               <Button
                 onClick={() => setShowStockFormStockOut(false)}
-                className="bg-pink-500"
+                className="bg-[#618264]"
               >
                 Cancel
               </Button>
 
-              <Button type="submit" className="bg-pink-500">
+              <Button type="submit" className="bg-[#618264]">
                 Submit
               </Button>
             </div>

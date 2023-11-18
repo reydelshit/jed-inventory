@@ -10,11 +10,11 @@ export default function PageHeader({
   return (
     <div className="text-start p-2">
       {display === 'true' ? (
-        <div className="text-2xl font-bold text-pink-500">HELLO, JED</div>
+        <div className="text-2xl font-bold text-[#618264]">HELLO, JED</div>
       ) : null}
       <span className="text-8xl font-bold flex">
         <h1>{title.slice(0, -1)}</h1>{' '}
-        <h1 className="text-pink-500">{title.charAt(title.length - 1)}.</h1>
+        <h1 className="text-[#618264]">{title.charAt(title.length - 1)}.</h1>
       </span>
 
       {description.length > 0 ? (

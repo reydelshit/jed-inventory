@@ -26,6 +26,11 @@ export default function Sidebar() {
           {/* <RxDashboard className="text-md h-[1.5rem] w-[1.5rem]" /> Dashboard */}
           Reports
         </Link>
+
+        <Link className="p-2 mb-2 flex items-center gap-2" to="/racks">
+          {/* <RxDashboard className="text-md h-[1.5rem] w-[1.5rem]" /> Dashboard */}
+          Racks
+        </Link>
       </div>
     </div>
   );
