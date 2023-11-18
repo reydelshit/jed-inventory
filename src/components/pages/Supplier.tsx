@@ -97,13 +97,13 @@ export default function Supplier() {
           <div className="w-full">
             <Table className="border-2">
               <TableCaption>A list of your recent invoices.</TableCaption>
-              <TableHeader>
+              <TableHeader className="bg-pink-500 text-white">
                 <TableRow>
-                  <TableHead>Supplier</TableHead>
-                  <TableHead>Product Supplied</TableHead>
-                  <TableHead>Address</TableHead>
-                  <TableHead>Phone</TableHead>
-                  <TableHead>Actions</TableHead>
+                  <TableHead className="text-white">Supplier</TableHead>
+                  <TableHead className="text-white">Product Supplied</TableHead>
+                  <TableHead className="text-white">Address</TableHead>
+                  <TableHead className="text-white">Phone</TableHead>
+                  <TableHead className="text-white">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

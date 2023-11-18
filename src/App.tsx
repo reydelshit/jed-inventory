@@ -66,7 +66,6 @@ function App() {
             </TableRow>
           </TableBody>
         </Table>
-        HP
       </div>
     </div>
   );

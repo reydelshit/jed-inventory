@@ -33,6 +33,17 @@ type ProductDetails = {
   product_id: number;
 };
 
+type ProductDetailSpecific = {
+  product_name: string;
+  description: string;
+  stocks: number;
+  expiration_date: string;
+  product_image: string;
+  supplier_id: number;
+  product_id: number;
+  supplier_name: string;
+};
+
 export default function Product() {
   const [isMouseOver, setIsMouseOver] = useState<boolean>(false);
   const [showProductModal, setShowProductModal] = useState<boolean>(false);
@@ -42,7 +53,9 @@ export default function Product() {
   const [supplierID, setSupplierID] = useState<number>(0);
   const [image, setImage] = useState<string | null>(null);
   const [productID, setProductID] = useState<number>(0);
-  const [productSpecific, setProductSpecific] = useState<ProductDetails[]>([]);
+  const [productSpecific, setProductSpecific] = useState<
+    ProductDetailSpecific[]
+  >([]);
 
   const navigate = useNavigate();
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -165,11 +178,10 @@ export default function Product() {
                     <p className="text-red-500 ">SOLD OUT</p>
                     <span className="flex gap-2">
                       SUPPLIER:{' '}
-                      <p className="text-red-500"> {prod.supplier_id}</p>
+                      <p className="text-red-500"> {prod.supplier_name}</p>
                     </span>
                     <span className="flex gap-2">
-                      CONSINGMENT EXP DATE:{' '}
-                      <p className="text-red-500"> {prod.expiration_date}</p>
+                      CONSINGMENT EXP DATE: {prod.expiration_date}
                     </span>
                   </div>
                 </div>

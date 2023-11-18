@@ -6,6 +6,7 @@ import Root from './components/root/Root.tsx';
 import Product from './components/pages/Product.tsx';
 import Supplier from './components/pages/Supplier.tsx';
 import ProductsAll from './components/pages/ProductsAll.tsx';
+import Stock from './components/pages/Stock.tsx';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
 
       {
         path: '/stock',
-        element: <h1>stock</h1>,
+        element: <Stock />,
       },
       {
         path: '/reports',
