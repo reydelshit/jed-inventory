@@ -74,7 +74,7 @@ export default function Reports() {
       <PageHeader
         title="Reports"
         display="false"
-        description="    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, labore beatae earum quisquam alias sed asperiores delectus quae architecto nulla."
+        description="Reports are calculated using this formula: (Remaining Inventory / Total Inventory) * 100"
       />
 
       <div className="border-2 mt-[5rem] flex justify-between w-full">
