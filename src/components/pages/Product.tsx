@@ -43,6 +43,7 @@ type ProductDetailSpecific = {
   supplier_id: number;
   product_id: number;
   supplier_name: string;
+  racks: string;
 };
 
 type ReportDetails = {
@@ -214,7 +215,10 @@ export default function Product() {
                         )}
                     </p>
                     <span className="flex gap-2">
-                      SUPPLIER: <p> {prod.supplier_name}</p>
+                      Supplier: <p> {prod.supplier_name}</p>
+                    </span>
+                    <span className="flex gap-2">
+                      Racks: <p> {prod.racks}</p>
                     </span>
                     <span className="flex gap-2">
                       CONSINGMENT EXP DATE: {prod.expiration_date}
