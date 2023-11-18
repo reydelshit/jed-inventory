@@ -5,6 +5,7 @@ import './index.css';
 import Root from './components/root/Root.tsx';
 import Product from './components/pages/Product.tsx';
 import Supplier from './components/pages/Supplier.tsx';
+import ProductsAll from './components/pages/ProductsAll.tsx';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,11 @@ const router = createBrowserRouter([
       {
         path: '/product',
         element: <Product />,
+      },
+
+      {
+        path: '/product/all',
+        element: <ProductsAll />,
       },
 
       {

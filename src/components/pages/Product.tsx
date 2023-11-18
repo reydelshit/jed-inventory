@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useNavigate, useNavigation } from 'react-router-dom';
 
 type SupplierDetails = {
   supplier_name: string;
@@ -22,14 +23,28 @@ type SupplierDetails = {
   supplier_id: number;
 };
 
+type ProductDetails = {
+  product_name: string;
+  description: string;
+  stocks: number;
+  expiration_date: string;
+  product_image: string;
+  supplier_id: number;
+  product_id: number;
+};
+
 export default function Product() {
   const [isMouseOver, setIsMouseOver] = useState<boolean>(false);
   const [showProductModal, setShowProductModal] = useState<boolean>(false);
   const [productDetails, setProductDetails] = useState({});
   const [suppliers, setSuppliers] = useState<SupplierDetails[]>([]);
+  const [product, setProduct] = useState<ProductDetails[]>([]);
   const [supplierID, setSupplierID] = useState<number>(0);
   const [image, setImage] = useState<string | null>(null);
+  const [productID, setProductID] = useState<number>(0);
+  const [productSpecific, setProductSpecific] = useState<ProductDetails[]>([]);
 
+  const navigate = useNavigate();
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const data = new FileReader();
     data.readAsDataURL(e.target.files![0]);
@@ -44,8 +59,12 @@ export default function Product() {
     };
   };
 
-  const handleMouseOver = () => {
+  const handleMouseOver = (id: number) => {
     setIsMouseOver(true);
+
+    console.log(id);
+    // setProductID(id);
+    getSpecificProduct(id);
   };
 
   const handleMouseLeave = () => {
@@ -72,18 +91,44 @@ export default function Product() {
       })
       .then((res) => {
         console.log(res.data);
+
+        if (res.data.status === 'success') {
+          setShowProductModal(false);
+          getAllProducts();
+        }
       });
   };
 
   const getAllSuppliers = () => {
     axios.get('http://localhost/jed-inventory/supplier.php').then((res) => {
-      console.log(res.data);
+      console.log(res.data, 'supplier');
       setSuppliers(res.data);
     });
   };
 
+  const getAllProducts = () => {
+    axios.get('http://localhost/jed-inventory/product.php').then((res) => {
+      console.log(res.data, 'prorduct');
+      setProduct(res.data);
+    });
+  };
+
+  const getSpecificProduct = (id: number) => {
+    axios
+      .get('http://localhost/jed-inventory/product.php', {
+        params: {
+          product_id: id,
+        },
+      })
+      .then((res) => {
+        setProductSpecific(res.data);
+        console.log(res.data, 'spe prorduct');
+      });
+  };
+
   useEffect(() => {
     getAllSuppliers();
+    getAllProducts();
   }, []);
 
   const handleStatus = (event: string) => {
@@ -95,7 +140,7 @@ export default function Product() {
 
   return (
     <div className="p-4 relative">
-      <div className="flex gap-10">
+      <div className="flex gap-10 ">
         <div className="w-[80%]">
           <PageHeader
             title="Product Info"
@@ -103,27 +148,33 @@ export default function Product() {
             description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum et cum eveniet ut saepe commodi, incidunt voluptas nostrum? Quasi, cupiditate!"
           />
 
-          {isMouseOver && (
-            <div className="flex gap-2 w-full border-2 mt-[2rem] p-2 border-pink-500 rounded-md font-bold ">
-              <img
-                className="h-[15rem] w-[20rem] object-cover block rounded-md"
-                src={Rainbow}
-                alt=""
-              />
-              <div className="flex items-start flex-col justify-center text-lg">
-                <h1 className="font-bold">CARROTS</h1>
-                <p className="text-red-500 ">SOLD OUT</p>
-                <span className="flex gap-2">
-                  SUPPLIER: <p className="text-red-500"> CLASSIX SNACKS</p>
-                </span>
-                <p>P49.00</p>
-                <span className="flex gap-2">
-                  CONSINGMENT EXP DATE:{' '}
-                  <p className="text-red-500"> 11/11/11</p>
-                </span>
-              </div>
-            </div>
-          )}
+          {isMouseOver &&
+            productSpecific.map((prod, index) => {
+              return (
+                <div
+                  key={index}
+                  className="flex gap-2 w-full border-2 mt-[2rem] p-2 border-pink-500 rounded-md font-bold "
+                >
+                  <img
+                    className="h-[15rem] w-[20rem] object-cover block rounded-md"
+                    src={prod.product_image}
+                    alt=""
+                  />
+                  <div className="flex items-start flex-col justify-center text-lg">
+                    <h1 className="font-bold">{prod.product_name}</h1>
+                    <p className="text-red-500 ">SOLD OUT</p>
+                    <span className="flex gap-2">
+                      SUPPLIER:{' '}
+                      <p className="text-red-500"> {prod.supplier_id}</p>
+                    </span>
+                    <span className="flex gap-2">
+                      CONSINGMENT EXP DATE:{' '}
+                      <p className="text-red-500"> {prod.expiration_date}</p>
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
         </div>
 
         <div className="w-full">
@@ -134,72 +185,46 @@ export default function Product() {
             >
               Add Product
             </Button>
-            <Button className="bg-pink-500">Add Product</Button>
+            <Button className="bg-pink-500">Add Stock</Button>
           </div>
           <div className="grid grid-cols-2 gap-2 w-full">
-            <div
-              onMouseOver={() => handleMouseOver()}
-              onMouseLeave={() => handleMouseLeave()}
-              className="h-[20rem]"
-            >
-              <img
-                className="h-[80%] w-full object-cover rounded-md"
-                src={Rainbow}
-                alt="product"
-              />
-              <div className="p-2">
-                <h1 className="font-bold uppercase text-2xl text-pink-500">
-                  Carrots
-                </h1>
-                <p className="text-sm">18/20 stocks</p>
-              </div>
-            </div>
-            <div
-              onMouseOver={() => handleMouseOver()}
-              onMouseLeave={() => handleMouseLeave()}
-              className="h-[20rem]"
-            >
-              <img
-                className="h-[80%] w-full object-cover rounded-md"
-                src={Rainbow}
-                alt="product"
-              />
-              <div className="p-2">
-                <h1 className="font-bold uppercase text-2xl text-pink-500">
-                  Carrots
-                </h1>
-                <p className="text-sm">18/20 stocks</p>
-              </div>
-            </div>
-
-            <div
-              onMouseOver={() => handleMouseOver()}
-              onMouseLeave={() => handleMouseLeave()}
-              className="h-[20rem]"
-            >
-              <img
-                className="h-[80%] w-full object-cover rounded-md"
-                src={Rainbow}
-                alt="product"
-              />
-              <div className="p-2">
-                <h1 className="font-bold uppercase text-2xl text-pink-500">
-                  Carrots
-                </h1>
-                <p className="text-sm">18/20 stocks</p>
-              </div>
-            </div>
+            {product
+              .map((product, index) => {
+                return (
+                  <div key={index} className="h-[20rem]">
+                    <img
+                      className="h-[80%] w-full object-cover rounded-md cursor-pointer hover:opacity-50"
+                      src={product.product_image}
+                      onMouseOver={() => handleMouseOver(product.product_id)}
+                      onMouseLeave={() => handleMouseLeave()}
+                      alt="product"
+                    />
+                    <div className="p-2">
+                      <h1 className="font-bold uppercase text-2xl text-pink-500">
+                        {product.product_name}
+                      </h1>
+                      <p className="text-sm">{product.stocks} stocks</p>
+                    </div>
+                  </div>
+                );
+              })
+              .slice(0, 4)}
           </div>
           <div className="w-full text-center mt-[2rem]">
-            <Button className="bg-pink-500">View More</Button>
+            <Button
+              onClick={() => navigate('/product/all')}
+              className="bg-pink-500"
+            >
+              View More
+            </Button>
           </div>
         </div>
       </div>
 
       {showProductModal && (
-        <div className="absolute w-full h-full top-0 z-40 bg-white bg-opacity-80 flex justify-center items-center">
+        <div className="absolute w-full h-full top-0 z-50 bg-white bg-opacity-80 flex justify-center items-center">
           <form
-            className="bg-white w-[35rem] p-4 rounded-md border-pink-500 border-2"
+            className="bg-white w-[35rem] h-fit p-4 rounded-md border-pink-500 border-2"
             onSubmit={handleSubmit}
           >
             <div className="mb-2">
