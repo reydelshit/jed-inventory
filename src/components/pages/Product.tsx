@@ -58,6 +58,7 @@ export default function Product() {
   >([]);
 
   const navigate = useNavigate();
+
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const data = new FileReader();
     data.readAsDataURL(e.target.files![0]);
@@ -166,10 +167,10 @@ export default function Product() {
               return (
                 <div
                   key={index}
-                  className="flex gap-2 w-full border-2 mt-[2rem] p-2 border-pink-500 rounded-md font-bold "
+                  className="flex gap-4 w-full border-2 mt-[2rem] p-2 rounded-md font-bold bg-white h-[25rem]"
                 >
                   <img
-                    className="h-[15rem] w-[20rem] object-cover block rounded-md"
+                    className="h-full w-[20rem] object-cover block rounded-md"
                     src={prod.product_image}
                     alt=""
                   />
@@ -197,22 +198,24 @@ export default function Product() {
             >
               Add Product
             </Button>
-            <Button className="bg-pink-500">Add Stock</Button>
+            <Button onClick={() => navigate('/stock')} className="bg-pink-500">
+              Add Stock
+            </Button>
           </div>
           <div className="grid grid-cols-2 gap-2 w-full">
             {product
               .map((product, index) => {
                 return (
-                  <div key={index} className="h-[20rem]">
+                  <div key={index} className="h-[20rem] p-4 ">
                     <img
-                      className="h-[80%] w-full object-cover rounded-md cursor-pointer hover:opacity-50"
+                      className="h-[80%] w-full object-cover rounded-3xl cursor-pointer hover:opacity-50"
                       src={product.product_image}
                       onMouseOver={() => handleMouseOver(product.product_id)}
                       onMouseLeave={() => handleMouseLeave()}
                       alt="product"
                     />
                     <div className="p-2">
-                      <h1 className="font-bold uppercase text-2xl text-pink-500">
+                      <h1 className="font-bold uppercase text-2xl ">
                         {product.product_name}
                       </h1>
                       <p className="text-sm">{product.stocks} stocks</p>

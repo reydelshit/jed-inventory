@@ -59,7 +59,7 @@ export default function ProductsAll() {
               <TableHead className="text-white">Product Name</TableHead>
               <TableHead className="text-white">Date Expiration</TableHead>
               <TableHead className="text-white">Status</TableHead>
-              <TableHead className="text-white">Quantity</TableHead>
+              <TableHead className="text-white">Stocks</TableHead>
               <TableHead className="text-white w-[5rem]">Actions</TableHead>
             </TableRow>
           </TableHeader>

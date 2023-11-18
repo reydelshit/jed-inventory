@@ -12,7 +12,7 @@ export default function Root() {
       <Header />
       <div className="flex border-2">
         <Sidebar />
-        <div className="w-full border-2 px-2">
+        <div className="w-full px-2">
           {location.pathname === '/' ? <App /> : <Outlet />}
         </div>
       </div>

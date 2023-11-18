@@ -80,12 +80,14 @@ export default function Stock() {
       .post('http://localhost/jed-inventory/stock.php', {
         product_name: selectedProduct,
         quantity: quantity,
+        product_id: selectedProductId,
         type: 'Stock In',
       })
       .then((res) => {
         console.log(res.data);
         setShowStockFormStockIn(false);
         getAllStockHistory();
+        getAllProducts();
       });
   };
 
@@ -95,12 +97,14 @@ export default function Stock() {
       .post('http://localhost/jed-inventory/stock.php', {
         product_name: selectedProduct,
         quantity: quantity,
+        product_id: selectedProductId,
         type: 'Stock Out',
       })
       .then((res) => {
         console.log(res.data);
         setShowStockFormStockOut(false);
         getAllStockHistory();
+        getAllProducts();
       });
   };
 
@@ -116,6 +120,7 @@ export default function Stock() {
         <div className="w-[30rem]">
           <div className="mt-[2rem] w-full flex justify-end">
             <Input
+              onChange={(e) => setSearchProduct(e.target.value)}
               placeholder="search product"
               className="w-[15rem] border-2 border-pink-500"
             />
@@ -174,9 +179,13 @@ export default function Stock() {
         </div>
 
         <div className="w-[80%]">
-          <h1 className="font-bold text-3xl py-5 text-end">
-            STOCK IN AND STOCK OUT HISTORY
-          </h1>
+          <div className="flex justify-between items-center">
+            <h1 className="font-bold text-3xl py-5">
+              STOCK IN AND STOCK OUT HISTORY
+            </h1>
+            <Button className="bg-pink-500">Export Report</Button>
+          </div>
+
           <Table className="border-2">
             <TableHeader className="bg-pink-500 text-white">
               <TableRow>

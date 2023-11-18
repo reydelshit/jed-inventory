@@ -8,7 +8,7 @@ export default function PageHeader({
   description: string;
 }) {
   return (
-    <div className="text-start p-2 border-2">
+    <div className="text-start p-2">
       {display === 'true' ? (
         <div className="text-2xl font-bold text-pink-500">HELLO, JED</div>
       ) : null}

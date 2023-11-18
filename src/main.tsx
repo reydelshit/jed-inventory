@@ -7,6 +7,7 @@ import Product from './components/pages/Product.tsx';
 import Supplier from './components/pages/Supplier.tsx';
 import ProductsAll from './components/pages/ProductsAll.tsx';
 import Stock from './components/pages/Stock.tsx';
+import Reports from './components/pages/Reports.tsx';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/reports',
-        element: <h1>reports</h1>,
+        element: <Reports />,
       },
     ],
   },

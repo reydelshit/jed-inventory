@@ -13,7 +13,7 @@ import PageHeader from './components/PageHeader';
 
 function App() {
   return (
-    <div className="p-4">
+    <div className="p-4 ">
       <PageHeader title="Dashboard" display="true" description="" />
 
       <div className="mt-[5rem] flex flex-col">

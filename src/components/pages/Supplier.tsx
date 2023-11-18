@@ -24,6 +24,7 @@ type SupplierDetails = {
 export default function Supplier() {
   const [supplierDetails, setSupplierDetails] = useState({});
   const [suppliers, setSuppliers] = useState<SupplierDetails[]>([]);
+  const [searchSupplier, setSearchSupplier] = useState('' as string);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -55,7 +56,7 @@ export default function Supplier() {
   }, []);
 
   return (
-    <div className="border-2 p-4">
+    <div className=" p-4">
       <div>
         <PageHeader
           title="Supplier"
@@ -65,8 +66,7 @@ export default function Supplier() {
       </div>
       <div className="mt-[2rem]">
         <div className="flex w-full justify-between gap-10">
-          <div className="w-[40rem] border-2 p-2">
-            <h1 className="font-bold text-2xl">Supplier Info</h1>
+          <div className="w-[40rem] p-4 bg-white rounded-lg">
             <form onSubmit={handleSubmit}>
               <div>
                 <Label>Supplier Name</Label>
@@ -88,15 +88,21 @@ export default function Supplier() {
                 <Input onChange={handleInputChange} name="address" />
               </div>
 
-              <Button type="submit" className="mt-2">
+              <Button type="submit" className="mt-2 bg-pink-500">
                 Submit
               </Button>
             </form>
           </div>
 
           <div className="w-full">
-            <Table className="border-2">
-              <TableCaption>A list of your recent invoices.</TableCaption>
+            <div className="mt-[2rem] w-full flex justify-end my-2">
+              <Input
+                onChange={(e) => setSearchSupplier(e.target.value)}
+                placeholder="search supplier"
+                className="w-[20rem] border-2 border-pink-500 bg-white"
+              />
+            </div>
+            <Table className="border-2 bg-white">
               <TableHeader className="bg-pink-500 text-white">
                 <TableRow>
                   <TableHead className="text-white">Supplier</TableHead>
@@ -107,17 +113,21 @@ export default function Supplier() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {suppliers.map((supplier) => {
-                  return (
-                    <TableRow>
-                      <TableCell>{supplier.supplier_name}</TableCell>
-                      <TableCell>{supplier.product_supplied}</TableCell>
-                      <TableCell>{supplier.address}</TableCell>
-                      <TableCell>{supplier.phone}</TableCell>
-                      <TableCell>delete update</TableCell>
-                    </TableRow>
-                  );
-                })}
+                {suppliers
+                  .filter((supplier) =>
+                    supplier.supplier_name.includes(searchSupplier),
+                  )
+                  .map((supplier, index) => {
+                    return (
+                      <TableRow key={index}>
+                        <TableCell>{supplier.supplier_name}</TableCell>
+                        <TableCell>{supplier.product_supplied}</TableCell>
+                        <TableCell>{supplier.address}</TableCell>
+                        <TableCell>{supplier.phone}</TableCell>
+                        <TableCell>delete update</TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </div>
