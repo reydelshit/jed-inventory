@@ -77,23 +77,23 @@ export default function Reports() {
         description="Reports are calculated using this formula: (Remaining Inventory / Total Inventory) * 100"
       />
 
-      <div className="border-2 mt-[5rem] flex justify-between w-full">
+      <div className="mt-[5rem] flex justify-between w-full">
         {product
           .map((product, index) => {
             return (
               <div
                 key={index}
-                className="flex justify-center w-[20rem] border-2 flex-col p-4 leading-8"
+                className="flex justify-center w-[20rem] flex-col p-4 leading-8"
               >
                 <h1 className="text-9xl text-pink-500 font-bold mb-[2rem]">
                   {Math.floor(CalculatePercentage(product.product_id))}%
                 </h1>
                 <p className="font-bold text-3xl">{product.product_name}</p>
                 <p className="font-bold text-1xl mb-[2rem]">
-                  Supplier: Reydel Ocon
+                  Supplier: {product.supplier_name}
                 </p>
 
-                <p className="font-bold text-1xl">MANILA TUPI</p>
+                <p className="font-bold text-1xl">{product.expiration_date}</p>
               </div>
             );
           })
