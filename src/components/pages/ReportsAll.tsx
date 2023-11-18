@@ -98,7 +98,16 @@ export default function ReportsAll() {
               <TableRow key={index}>
                 <TableCell>{product.product_name}</TableCell>
                 <TableCell>{product.supplier_name}</TableCell>
-                <TableCell>{product.stocks}</TableCell>
+                <TableCell>
+                  {product.stocks} /{' '}
+                  {reports
+                    .filter(
+                      (prod) =>
+                        prod.type === 'Stock In' &&
+                        prod.product_id === product.product_id,
+                    )
+                    .reduce((total, prod) => total + prod.quantity, 0)}
+                </TableCell>
                 <TableCell>
                   {Math.floor(CalculatePercentage(product.product_id))} %
                   Inventory Remaining

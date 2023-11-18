@@ -88,6 +88,16 @@ export default function Reports() {
                 <h1 className="text-9xl text-pink-500 font-bold mb-[2rem]">
                   {Math.floor(CalculatePercentage(product.product_id))}%
                 </h1>
+                <p className="font-bold text-3xl">
+                  {product.stocks} /{' '}
+                  {reports
+                    .filter(
+                      (prod) =>
+                        prod.type === 'Stock In' &&
+                        prod.product_id === product.product_id,
+                    )
+                    .reduce((total, prod) => total + prod.quantity, 0)}
+                </p>
                 <p className="font-bold text-3xl">{product.product_name}</p>
                 <p className="font-bold text-1xl mb-[2rem]">
                   Supplier: {product.supplier_name}
