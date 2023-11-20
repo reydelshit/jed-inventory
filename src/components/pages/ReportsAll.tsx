@@ -83,9 +83,9 @@ export default function ReportsAll() {
         description="This is the reports page"
       />
 
-      <div className="mt-[2rem] w-[40%]">
+      <div className="mt-[2rem] w-[100%]">
         <Table className="border-2 bg-white">
-          <TableHeader className="bg-pink-500 text-white">
+          <TableHeader className="bg-[#618264] text-white">
             <TableRow>
               <TableHead className="text-white">Product Name</TableHead>
               <TableHead className="text-white">Supplier</TableHead>

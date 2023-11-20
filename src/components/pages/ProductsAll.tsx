@@ -14,6 +14,7 @@ import PageHeader from '../PageHeader';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 type ProductDetails = {
   product_name: string;
@@ -123,7 +124,7 @@ export default function ProductsAll() {
       <PageHeader
         title="All Products"
         display="false"
-        description="  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi voluptas eveniet deserunt expedita consequatur eaque recusandae architecto dolorem id numquam."
+        description="Welcome, your centralized hub displaying a comprehensive list of available products, their current stock levels, and essential details for streamlined inventory management."
       />
       <div className="mt-[2rem]">
         <div className="flex justify-end">
@@ -158,7 +159,9 @@ export default function ProductsAll() {
                     />
                   </TableCell>
                   <TableCell>{prod.product_name}</TableCell>
-                  <TableCell>{prod.expiration_date}</TableCell>
+                  <TableCell>
+                    {moment(prod.expiration_date).format('LL')}
+                  </TableCell>
                   <TableCell>
                     {prod.stocks > 20 ? 'IN STOCK' : 'OUT OF STOCK'}
                   </TableCell>

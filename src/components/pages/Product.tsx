@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useNavigate, useNavigation } from 'react-router-dom';
+import moment from 'moment';
 
 type SupplierDetails = {
   supplier_name: string;
@@ -184,7 +185,7 @@ export default function Product() {
           <PageHeader
             title="Product Info"
             display="false"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum et cum eveniet ut saepe commodi, incidunt voluptas nostrum? Quasi, cupiditate!"
+            description="Welcome, your centralized hub displaying a comprehensive list of available products, their current stock levels, and essential details for streamlined inventory management."
           />
 
           {isMouseOver &&
@@ -192,7 +193,7 @@ export default function Product() {
               return (
                 <div
                   key={index}
-                  className="flex gap-4 w-full border-2 mt-[2rem] p-2 rounded-md font-bold bg-white h-[25rem]"
+                  className="flex gap-4 w-full border-2 mt-[2rem] p-2 rounded-md bg-[#618264] h-[25rem] text-white"
                 >
                   <img
                     className="h-full w-[20rem] object-cover block rounded-md"
@@ -200,8 +201,11 @@ export default function Product() {
                     alt=""
                   />
                   <div className="flex items-start flex-col justify-center text-lg">
-                    <h1 className="font-bold">{prod.product_name}</h1>
-                    <p>
+                    <h1 className="font-bold text-3xl">
+                      {prod.product_name.slice(0, 1).toUpperCase() +
+                        prod.product_name.slice(1).toLowerCase()}
+                    </h1>
+                    <p className="flex">
                       {prod.stocks} /{' '}
                       {reports
                         .filter(
@@ -213,6 +217,7 @@ export default function Product() {
                           (total, product) => total + product.quantity,
                           0,
                         )}
+                      <p className="text-sm self-end ml-2">stocks</p>
                     </p>
                     <span className="flex gap-2">
                       Supplier: <p> {prod.supplier_name}</p>
@@ -220,9 +225,10 @@ export default function Product() {
                     <span className="flex gap-2">
                       Racks: <p> {prod.racks}</p>
                     </span>
-                    <span className="flex gap-2">
-                      CONSINGMENT EXP DATE: {prod.expiration_date}
-                    </span>
+                    <p className="font-bold text-1xl border-b-4 border-[#618264]">
+                      {moment(prod.expiration_date).endOf('day').fromNow()}{' '}
+                      until consignment
+                    </p>
                   </div>
                 </div>
               );

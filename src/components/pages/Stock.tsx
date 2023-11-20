@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/table';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
+import moment from 'moment';
 
 type ProductDetails = {
   product_name: string;
@@ -108,12 +109,29 @@ export default function Stock() {
       });
   };
 
+  const handleExportStock = () => {
+    const printContents = document.getElementById('stock-table')?.innerHTML;
+    const originalContents = document.body.innerHTML;
+
+    const printWindow = window.open('', '_blank');
+
+    if (printWindow) {
+      if (printContents && typeof printContents === 'string') {
+        printWindow.document.body.innerHTML = printContents;
+      }
+
+      printWindow.print();
+      printWindow.close();
+      document.body.innerHTML = originalContents;
+    }
+  };
+
   return (
     <div className="relative">
       <PageHeader
         title="Stock"
         display="false"
-        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi voluptas eveniet deserunt expedita consequatur eaque recusandae architecto dolorem id numquam."
+        description="Welcome, your central hub providing a comprehensive inventory listing. This intuitive interface facilitates easy monitoring, updating, and management of stock levels, ensuring seamless control and visibility over inventory quantities for efficient operations"
       />
 
       <div className="flex gap-[5rem] justify-between">
@@ -184,29 +202,35 @@ export default function Stock() {
             <h1 className="font-bold text-3xl py-5">
               STOCK IN AND STOCK OUT HISTORY
             </h1>
-            <Button className="bg-[#618264]">Export Report</Button>
+            <Button onClick={handleExportStock} className="bg-[#618264]">
+              Export Report
+            </Button>
           </div>
-
-          <Table className="border-2 bg-white">
-            <TableHeader className="bg-[#618264] text-white">
-              <TableRow>
-                <TableHead className="text-white">Date</TableHead>
-                <TableHead className="text-white">Product Name</TableHead>
-                <TableHead className="text-white">Type</TableHead>
-                <TableHead className="text-white">Quantity</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {stockHistory.map((stock, index) => (
-                <TableRow key={index}>
-                  <TableCell>{stock.created_at}</TableCell>
-                  <TableCell>{stock.product_name}</TableCell>
-                  <TableCell>{stock.type}</TableCell>
-                  <TableCell>{stock.quantity}</TableCell>
+          <div id="stock-table">
+            <Table className="border-2 bg-white">
+              <TableHeader className="bg-[#618264] text-white">
+                <TableRow>
+                  <TableHead className="text-white">Date</TableHead>
+                  <TableHead className="text-white">Product Name</TableHead>
+                  <TableHead className="text-white">Type</TableHead>
+                  <TableHead className="text-white">Quantity</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {stockHistory.map((stock, index) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      {' '}
+                      {moment(stock.created_at).format('LL')}
+                    </TableCell>
+                    <TableCell>{stock.product_name}</TableCell>
+                    <TableCell>{stock.type}</TableCell>
+                    <TableCell>{stock.quantity}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </div>
 

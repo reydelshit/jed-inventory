@@ -1,25 +1,22 @@
-import Header from './components/Header';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from './components/ui/input';
 import PageHeader from './components/PageHeader';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import {
+  TbHexagonNumber1,
+  TbHexagonNumber2,
+  TbHexagonNumber3,
+} from 'react-icons/tb';
+import moment from 'moment';
 
 type ReportDetails = {
   type: string;
@@ -91,7 +88,7 @@ function App() {
               <CardTitle className="text-sm font-medium">
                 NUMBER OF PRODUCTS
               </CardTitle>
-              y
+              <TbHexagonNumber1 className="w-[3rem] h-[3rem] text-[#618264]" />
             </CardHeader>
             <CardContent>
               <div className="text-8xl font-bold text-[#618264]">
@@ -108,7 +105,7 @@ function App() {
               <CardTitle className="text-sm font-medium">
                 NUMBER OF SUPPLIERS
               </CardTitle>
-              y
+              <TbHexagonNumber2 className="w-[3rem] h-[3rem] text-[#618264]" />
             </CardHeader>
             <CardContent>
               <div className="text-8xl font-bold text-[#618264]">
@@ -125,7 +122,7 @@ function App() {
               <CardTitle className="text-sm font-medium">
                 RACKS AVAILABLE
               </CardTitle>
-              y
+              <TbHexagonNumber3 className="w-[3rem] h-[3rem] text-[#618264]" />
             </CardHeader>
             <CardContent>
               <div className="text-8xl font-bold text-[#618264]">9</div>
@@ -164,7 +161,10 @@ function App() {
                 <TableRow key={index}>
                   <TableCell>{product.product_name}</TableCell>
                   <TableCell>{product.supplier_name}</TableCell>
-                  <TableCell>{product.expiration_date}</TableCell>
+                  <TableCell>
+                    {' '}
+                    {moment(product.expiration_date).format('LL')}
+                  </TableCell>
                   <TableCell className="font-bold text-red-500">
                     {(product.stocks /
                       reports

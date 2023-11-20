@@ -117,7 +117,7 @@ export default function Supplier() {
         <PageHeader
           title="Supplier"
           display="false"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum et cum eveniet ut saepe commodi, incidunt voluptas nostrum? Quasi, cupiditate!"
+          description="Welcome, your central platform displaying a comprehensive list of current suppliers. The interface allows you to effortlessly add, update, or remove supplier details, ensuring seamless supplier management"
         />
       </div>
       <div className="mt-[2rem]">

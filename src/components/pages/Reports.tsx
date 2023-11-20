@@ -3,6 +3,7 @@ import PageHeader from '../PageHeader';
 import { Button } from '../ui/button';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import moment from 'moment';
 
 type ReportDetails = {
   type: string;
@@ -85,10 +86,11 @@ export default function Reports() {
                 key={index}
                 className="flex justify-center w-[20rem] flex-col p-4 leading-8"
               >
-                <h1 className="text-9xl text-[#618264] font-bold mb-[2rem]">
+                <h1 className="text-9xl text-[#618264] font-bold">
                   {Math.floor(CalculatePercentage(product.product_id))}%
                 </h1>
-                <p className="font-bold text-3xl">
+
+                <p className="font-bold text-3xl flex">
                   {product.stocks} /{' '}
                   {reports
                     .filter(
@@ -96,14 +98,23 @@ export default function Reports() {
                         prod.type === 'Stock In' &&
                         prod.product_id === product.product_id,
                     )
-                    .reduce((total, prod) => total + prod.quantity, 0)}
+                    .reduce((total, prod) => total + prod.quantity, 0)}{' '}
+                  <p className="font-normal text-sm self-end ml-2 text-[#618264]">
+                    stocks
+                  </p>
                 </p>
-                <p className="font-bold text-3xl">{product.product_name}</p>
-                <p className="font-bold text-1xl mb-[2rem]">
+                <p className="font-bold text-3xl">
+                  {product.product_name.slice(0, 1).toUpperCase() +
+                    product.product_name.slice(1).toLowerCase()}
+                </p>
+                <p className="text-1xl mb-[2rem] bg-[#618264] text-white w-fit p-1 my-2 rounded-lg font-semibold">
                   Supplier: {product.supplier_name}
                 </p>
 
-                <p className="font-bold text-1xl">{product.expiration_date}</p>
+                <p className="font-bold text-1xl border-b-4 border-[#618264]">
+                  {moment(product.expiration_date).endOf('day').fromNow()} until
+                  consignment
+                </p>
               </div>
             );
           })

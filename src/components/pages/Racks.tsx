@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import moment from 'moment';
 
 type ProductDetails = {
   product_name: string;
@@ -95,12 +96,14 @@ export default function Racks() {
                       />
                     </TableCell>
                     <TableCell>{prod.product_name}</TableCell>
-                    <TableCell>{prod.expiration_date}</TableCell>
+                    <TableCell>
+                      {moment(prod.expiration_date).format('LL')}
+                    </TableCell>
                     <TableCell>
                       {prod.stocks > 20 ? 'IN STOCK' : 'OUT OF STOCK'}
                     </TableCell>
                     <TableCell>{prod.stocks}</TableCell>
-                    <TableCell>{prod.racks}</TableCell>
+                    <TableCell>{prod.racks} </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
