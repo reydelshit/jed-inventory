@@ -7,6 +7,12 @@ import Header from '../Header';
 export default function Root() {
   const location = useLocation();
 
+  const isLogin = localStorage.getItem('isLogin');
+
+  if (!isLogin) {
+    return (window.location.href = '/login');
+  }
+
   return (
     <div className="w-full border-2">
       <Header />

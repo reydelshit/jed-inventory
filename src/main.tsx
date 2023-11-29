@@ -10,6 +10,7 @@ import Stock from './components/pages/Stock.tsx';
 import Reports from './components/pages/Reports.tsx';
 import ReportsAll from './components/pages/ReportsAll.tsx';
 import Racks from './components/pages/Racks.tsx';
+import Login from './components/Login.tsx';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
         element: <Racks />,
       },
     ],
+  },
+
+  {
+    path: '/login',
+    element: <Login />,
   },
 ]);
 
