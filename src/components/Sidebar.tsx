@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Button } from './ui/button';
 export default function Sidebar() {
   return (
     <div className="font-bold w-[15rem] h-screen flex flex-col items-center justify-center border-r-2">
