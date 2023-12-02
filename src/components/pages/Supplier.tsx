@@ -179,7 +179,11 @@ export default function Supplier() {
                     .map((supplier, index) => {
                       return (
                         <TableRow key={index}>
-                          <TableCell>{supplier.supplier_name}</TableCell>
+                          <TableCell>
+                            {supplier.supplier_name.length > 0
+                              ? supplier.supplier_name
+                              : 'n/a'}
+                          </TableCell>
                           <TableCell>{supplier.product_supplied}</TableCell>
                           <TableCell>{supplier.address}</TableCell>
                           <TableCell>{supplier.phone}</TableCell>

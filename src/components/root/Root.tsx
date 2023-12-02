@@ -16,7 +16,7 @@ export default function Root() {
   return (
     <div className="w-full border-2">
       <Header />
-      <div className="flex border-2">
+      <div className="flex">
         <Sidebar />
         <div className="w-full px-2">
           {location.pathname === '/' ? <App /> : <Outlet />}

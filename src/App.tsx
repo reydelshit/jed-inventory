@@ -146,6 +146,8 @@ function App() {
         <Table className="border-2">
           <TableHeader className="bg-[#618264] text-white">
             <TableRow>
+              <TableHead className="text-white"></TableHead>
+
               <TableHead className="text-white">Product Name</TableHead>
               <TableHead className="text-white">Supplier</TableHead>
 
@@ -159,6 +161,13 @@ function App() {
               .filter((prod) => prod.product_name.includes(searchProduct))
               .map((product, index) => (
                 <TableRow key={index}>
+                  <TableCell>
+                    <img
+                      className="w-[5rem] rounded-lg h-[5rem] object-cover"
+                      src={product.product_image}
+                      alt={product.product_name}
+                    />
+                  </TableCell>
                   <TableCell>{product.product_name}</TableCell>
                   <TableCell>{product.supplier_name}</TableCell>
                   <TableCell>
