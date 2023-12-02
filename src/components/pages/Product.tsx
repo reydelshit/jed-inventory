@@ -282,7 +282,7 @@ export default function Product() {
       {showProductModal && (
         <div className="absolute w-full h-full top-0 z-50 bg-[#f2f2f0] bg-opacity-80 flex justify-center items-center">
           <form
-            className="bg-white w-[35rem] h-fit p-4 rounded-md border-[#618264] border-2"
+            className="bg-white w-[35rem] mt-[20rem] h-fit p-4 rounded-md border-[#618264] border-2"
             onSubmit={handleSubmit}
           >
             <div className="mb-2">
