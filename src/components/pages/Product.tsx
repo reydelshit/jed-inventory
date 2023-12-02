@@ -120,10 +120,8 @@ export default function Product() {
       .then((res) => {
         console.log(res.data);
 
-        if (res.data.status === 'success') {
-          setShowProductModal(false);
-          getAllProducts();
-        }
+        setShowProductModal(false);
+        getAllProducts();
       });
   };
 
@@ -288,6 +286,20 @@ export default function Product() {
             onSubmit={handleSubmit}
           >
             <div className="mb-2">
+              <img
+                className="w-[40rem]  h-[25rem] object-cover rounded-lg mb-4"
+                src={image! ? image! : dumy}
+              />
+              <Label>Product Image</Label>
+              <Input
+                required
+                type="file"
+                accept="image/*"
+                onChange={handleChangeImage}
+                name="product_image"
+              />
+            </div>
+            <div className="mb-2">
               <Label>Supplier</Label>
               <Select required onValueChange={(e: string) => handleStatus(e)}>
                 <SelectTrigger>
@@ -306,21 +318,6 @@ export default function Product() {
                   })}
                 </SelectContent>
               </Select>
-            </div>
-
-            <div className="mb-2">
-              <img
-                className="w-[40rem]  h-[25rem] object-cover rounded-lg mb-4"
-                src={image! ? image! : dumy}
-              />
-              <Label>Product Image</Label>
-              <Input
-                required
-                type="file"
-                accept="image/*"
-                onChange={handleChangeImage}
-                name="product_image"
-              />
             </div>
             <div>
               <Label>Product Name</Label>
@@ -346,7 +343,7 @@ export default function Product() {
 
               <Select required onValueChange={(e: string) => handleRacks(e)}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Supplier" />
+                  <SelectValue placeholder="Racks" />
                 </SelectTrigger>
                 <SelectContent>
                   {Array.from({ length: 10 }, (_, i) => i).map((num) => {
