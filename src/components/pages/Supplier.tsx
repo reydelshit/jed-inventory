@@ -24,7 +24,12 @@ type SupplierDetails = {
 };
 
 export default function Supplier() {
-  const [supplierDetails, setSupplierDetails] = useState({});
+  const [supplierDetails, setSupplierDetails] = useState({
+    supplier_name: '',
+    phone: '',
+    product_supplied: '',
+    address: '',
+  });
   const [suppliers, setSuppliers] = useState<SupplierDetails[]>([]);
   const [searchSupplier, setSearchSupplier] = useState('' as string);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
@@ -39,7 +44,7 @@ export default function Supplier() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     console.log(name, value);
-    setUpdateSupplierDetails((values) => ({ ...values, [name]: value }));
+    setSupplierDetails((values) => ({ ...values, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -51,6 +56,15 @@ export default function Supplier() {
       })
       .then((res) => {
         console.log(res.data);
+        getAllSuppliers();
+        // window.location.reload();
+
+        setSupplierDetails({
+          supplier_name: '',
+          phone: '',
+          product_supplied: '',
+          address: '',
+        });
       });
   };
 
@@ -126,22 +140,38 @@ export default function Supplier() {
             <form onSubmit={handleSubmit}>
               <div>
                 <Label>Supplier Name</Label>
-                <Input onChange={handleInputChange} name="supplier_name" />
+                <Input
+                  value={supplierDetails.supplier_name}
+                  onChange={handleInputChange}
+                  name="supplier_name"
+                />
               </div>
 
               <div>
                 <Label>Phone</Label>
-                <Input onChange={handleInputChange} name="phone" />
+                <Input
+                  value={supplierDetails.phone}
+                  onChange={handleInputChange}
+                  name="phone"
+                />
               </div>
 
               <div>
                 <Label>Product Supplied</Label>
-                <Input onChange={handleInputChange} name="product_supplied" />
+                <Input
+                  value={supplierDetails.product_supplied}
+                  onChange={handleInputChange}
+                  name="product_supplied"
+                />
               </div>
 
               <div>
                 <Label>Address</Label>
-                <Input onChange={handleInputChange} name="address" />
+                <Input
+                  value={supplierDetails.address}
+                  onChange={handleInputChange}
+                  name="address"
+                />
               </div>
 
               <Button type="submit" className="mt-2 bg-[#618264]">
